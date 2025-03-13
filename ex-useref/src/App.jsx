@@ -1,33 +1,95 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.css'
 
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [name, setName] = useState("")
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+  const [specialization, setSpecialization] = useState("")
+  const [experience, setExperience] = useState("")
+  const [description, setDescription] = useState("")
+
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (name != "" && name.length > 6 && username != "" && username.length > 6 && password != "" && password.length > 6 && specialization != "" && experience > 0 && description != "" && description.length > 6) {
+      console.log({
+        name,
+        username,
+        password,
+        specialization,
+        experience,
+        description
+      })
+      setName("");
+      setDescription("");
+      setExperience("")
+      setPassword("")
+      setSpecialization("")
+      setUsername("")
+    } else {
+      alert("Errore: Compilare il form correttamemnte")
+    }
+  }
+
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label >Nome Completo:</label>
+          <input
+            type="text"
+            className='name'
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+
+        <div>
+
+          <label>Username</label>
+          <input
+            type="text"
+            className='username'
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+
+          <label>Password</label>
+          <input type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label>Specializzazione</label>
+          <select
+            value={specialization}
+            onChange={(e) => setSpecialization(e.target.value)}>
+            <option value="">Seleziona una specializzazione</option>
+            <option value="Full Stack">Full Stack</option>
+            <option value="Frontend">Frontend</option>
+            <option value="Backend">Backend</option>
+          </select>
+          <label>Anni di esperienza</label>
+          <input type="number"
+            value={experience}
+            onChange={(e) => setExperience(e.target.value)}
+          />
+
+        </div>
+        <label>Descriviti</label>
+        <textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+        <button type='submit' >Submit</button>
+      </form>
     </>
   )
 }
