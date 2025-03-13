@@ -11,7 +11,7 @@ function App() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   /*  const [specialization, setSpecialization] = useState("")  */
-  const [experience, setExperience] = useState("")
+  const [experience, setExperience] = useState(0)
   const [description, setDescription] = useState("")
 
   const specialzationRef = useRef(null)
