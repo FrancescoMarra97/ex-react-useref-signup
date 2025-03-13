@@ -38,7 +38,7 @@ function App() {
 
   const isDescriptionValid = useMemo(() => {
     return description.trim().length < 1000 && description.trim().length > 100
-  })
+  }, [description])
   const handleSubmit = (e) => {
     e.preventDefault()
     const specialization = specialzationRef.current.value;
