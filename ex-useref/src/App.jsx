@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 
 import './App.css'
 
@@ -7,12 +7,16 @@ const numbers = "0123456789"
 const symbols = "!@#$%^&*()-_=+[]{}|;:'\\\",.<>?/~";
 
 function App() {
-  const [name, setName] = useState("")
+  /* const [name, setName] = useState("") */
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
-  const [specialization, setSpecialization] = useState("")
+  /*  const [specialization, setSpecialization] = useState("")  */
   const [experience, setExperience] = useState("")
   const [description, setDescription] = useState("")
+
+  const specialzationRef = useRef(null)
+  const nameRef = useRef(null)
+
 
   const isUsernameValid = useMemo(() => {
     const charsValid = username.split("").every((char) =>
@@ -37,6 +41,9 @@ function App() {
   })
   const handleSubmit = (e) => {
     e.preventDefault()
+    const specialization = specialzationRef.current.value;
+    const name = nameRef.current.value;
+
     if (name != "" &&
       name.length > 6 &&
       isUsernameValid &&
@@ -52,12 +59,12 @@ function App() {
         experience,
         description
       })
-      setName("");
       setDescription("");
       setExperience("")
       setPassword("")
-      setSpecialization("")
       setUsername("")
+      nameRef.current.value = "";
+      specialzationRef.current.value = "";
     } else {
       alert("Errore: Compilare il form correttamemnte")
     }
@@ -72,8 +79,8 @@ function App() {
           <input
             type="text"
             className='name'
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            ref={nameRef}
+
           />
         </div>
 
@@ -103,8 +110,8 @@ function App() {
         <div>
           <label>Specializzazione</label>
           <select
-            value={specialization}
-            onChange={(e) => setSpecialization(e.target.value)}>
+            ref={specialzationRef}
+          >
             <option value="">Seleziona una specializzazione</option>
             <option value="Full Stack">Full Stack</option>
             <option value="Frontend">Frontend</option>
